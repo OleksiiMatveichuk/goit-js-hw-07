@@ -27,15 +27,17 @@ function imgModal(evt) {
   if (evt.target.nodeName !== "IMG") {
     return;
   }
-  const instance = basicLightbox.create(`
-    <img src="${evt.target.dataset.source}">
-`);
+  const instance = basicLightbox.create(
+    `
+    <img src="${evt.target.dataset.source}">`,
+    {
+      onShow: (instance) =>
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            instance.close();
+          }
+        }),
+    }
+  );
   instance.show();
-}
-
-document.addEventListener("keydown", closeModal);
-function closeModal(e) {
-  if (e.key === "Escape") {
-    console.log("we do it!!!");
-  }
 }
