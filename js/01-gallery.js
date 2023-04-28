@@ -27,16 +27,20 @@ function imgModal(evt) {
   if (evt.target.nodeName !== "IMG") {
     return;
   }
+
+  const escClose = (e) => {
+    if (e.key === "Escape") {
+      instance.close();
+    }
+  };
   const instance = basicLightbox.create(
     `
     <img src="${evt.target.dataset.source}">`,
     {
-      onShow: (instance) =>
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape") {
-            instance.close();
-          }
-        }),
+      onShow: (instance) => document.addEventListener("keydown", escClose),
+      onClose: (instance) => {
+        document.removeEventListener("keydown", escClose);
+      },
     }
   );
   instance.show();
