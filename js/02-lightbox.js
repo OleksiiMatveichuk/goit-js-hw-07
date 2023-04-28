@@ -10,6 +10,7 @@ const arrItems = galleryItems.map((el) => {
       class="gallery__image"
       src="${el.preview}"
       alt="${el.description}"
+      title="${el.description}"
     />
   </a>
 </li>`;
@@ -20,5 +21,5 @@ const list = document.querySelector(".gallery");
 list.innerHTML = arrItems.join("");
 
 const lightbox = new SimpleLightbox(".gallery a", {
-  /* options */
+  captionDelay: 250,
 });
